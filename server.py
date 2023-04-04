@@ -4,7 +4,7 @@ from threading import Thread
 # server's IP address
 SERVER_HOST = "0.0.0.0"
 SERVER_PORT = 5002 # port we want to use
-separator_token = "<SEP>" # we will use this to separate the client name & message
+separator_token = "<FRC>" # we will use this to separate the client name & message
 
 # initialize list/set of all connected client's sockets
 client_sockets = set()

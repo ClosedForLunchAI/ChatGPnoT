@@ -3,6 +3,7 @@ import random
 from threading import Thread
 from datetime import datetime
 from colorama import Fore, init, Back
+import encrypt
 import base64
 
 # init colors
@@ -37,8 +38,9 @@ name = input("Enter your name: ")
 
 def listen_for_messages():
     while True:
-        message =s.recv(1024).decode() 
-        print("\n" + message)
+        message =s.recv(1024).decode()
+        desencriptado = encrypt.encrypt(message)
+        print("\n" + desencriptado)
 
 # make a thread that listens for messages to this client & print them
 t = Thread(target=listen_for_messages)
@@ -56,8 +58,10 @@ while True:
     # add the datetime, name & the color of the sender
     date_now = datetime.now().strftime('%Y-%m-%d %H:%M:%S') 
     to_send = f"{client_color}[{date_now}] {name}{separator_token}{to_send}{Fore.RESET}"
+    # encrypt the message
+    encriptar = encrypt.encrypt(to_send)
     # finally, send the message
-    s.send(to_send.encode())
+    s.send(encriptar.encode())
 
 # close the socket
 s.close()
