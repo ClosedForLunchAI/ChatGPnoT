@@ -24,7 +24,7 @@ client_color = random.choice(colors)
 # put the private (network) IP address (e.g 192.168.1.2)
 SERVER_HOST = "127.0.0.1"
 SERVER_PORT = 5002 # server's port
-separator_token = "<SEP>" # we will use this to separate the client name & message
+separator_token = ": " # we will use this to separate the client name & message
 
 # initialize TCP socket
 s = socket.socket()
@@ -39,7 +39,7 @@ name = input("Enter your name: ")
 def listen_for_messages():
     while True:
         message =s.recv(1024).decode()
-        desencriptado = encrypt.encrypt(message)
+        desencriptado = encrypt.decrypt(message)
         print("\n" + desencriptado)
 
 # make a thread that listens for messages to this client & print them
@@ -60,6 +60,7 @@ while True:
     to_send = f"{client_color}[{date_now}] {name}{separator_token}{to_send}{Fore.RESET}"
     # encrypt the message
     encriptar = encrypt.encrypt(to_send)
+    print(encriptar)
     # finally, send the message
     s.send(encriptar.encode())
 
