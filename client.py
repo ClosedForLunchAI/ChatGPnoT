@@ -60,7 +60,6 @@ while True:
     to_send = f"{client_color}[{date_now}] {name}{separator_token}{to_send}{Fore.RESET}"
     # encrypt the message
     encriptar = encrypt.encrypt(to_send)
-    print(encriptar)
     # finally, send the message
     s.send(encriptar.encode())
 
