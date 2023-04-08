@@ -1,6 +1,9 @@
 import socket
 from threading import Thread
+import logging
 
+
+logging.basicConfig(filename='logs.log', encoding='utf-8', level=logging.DEBUG, format='%(asctime)s %(levelname)s: %(message)s')
 # server's IP address
 SERVER_HOST = "0.0.0.0"
 SERVER_PORT = 5002 # port we want to use
@@ -18,6 +21,7 @@ s.bind((SERVER_HOST, SERVER_PORT))
 s.listen(5)
 print(f"[*] Listening as {SERVER_HOST}:{SERVER_PORT}")
 
+
 def listen_for_client(cs):
     """
     This function keep listening for a message from `cs` socket
@@ -32,6 +36,7 @@ def listen_for_client(cs):
             # remove it from the set
             print(f"[!] Error: {e}")
             client_sockets.remove(cs)
+            logging.error("Se perdio la conexión con el cliente")
         else:
             # if we received a message, replace the <SEP> 
             # token with ": " for nice printing
@@ -40,6 +45,7 @@ def listen_for_client(cs):
         for client_socket in client_sockets:
             # and send the message
             client_socket.send(msg.encode())
+            logging.info("mensaje enviado")
 
 while True:
     # we keep listening for new connections all the time
@@ -47,6 +53,7 @@ while True:
     print(f"[+] {client_address} connected.")
     # add the new connected client to connected sockets
     client_sockets.add(client_socket)
+    logging.info("Nuevo participante")
     # start a new thread that listens for each client's messages
     t = Thread(target=listen_for_client, args=(client_socket,))
     # make the thread daemon so it ends whenever the main thread ends
