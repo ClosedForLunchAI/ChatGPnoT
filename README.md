@@ -4,7 +4,7 @@ Proyecto de app de chat con encriptación de mensajes
 
 ## Especificaciones
 
-- Se estara utilizando docker en el proyecto para simular 2 maquinas distintas
+- Se estara utilizando docker en el proyecto para simular 2 máquinas distintas
 
 ## Intrucciones de uso
 
